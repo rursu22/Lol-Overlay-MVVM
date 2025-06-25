@@ -13,7 +13,6 @@
             <BooleanToVisibilityConverter
             x:Key="BoolToVisibilityConverter" />
 
-            <!-- custom inverse converter -->
             <utils:InverseBooleanToVisibilityConverter
             x:Key="InverseBoolToVisibilityConverter" />
 

@@ -7,7 +7,12 @@
     <SolidColorBrush x:Key="HoverColor" Color="#493489"/>
     <SolidColorBrush x:Key="BorderColor" Color="#3C2B67" />
     <SolidColorBrush x:Key="ButtonColor" Color="RoyalBlue" />
+    <SolidColorBrush x:Key="ButtonTextColor" Color="White" />
+    <SolidColorBrush x:Key="CloseButtonColor" Color="White" />
     <Color x:Key="DropShadowColor">
         White
+    </Color>
+    <Color x:Key="TextDropShadowColor">
+        Black
     </Color>
 </ResourceDictionary>

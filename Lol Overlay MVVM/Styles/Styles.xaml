@@ -24,11 +24,9 @@
     </FontFamily>
 
     <Style x:Key="ShowPasswordButton" TargetType="CheckBox">
-        <!-- size & icon -->
         <Setter Property="Width" Value="20"/>
         <Setter Property="Height" Value="20"/>
 
-        <!-- no chrome by default -->
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource BackgroundColorText}" />
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -107,7 +105,6 @@
                 <ControlTemplate TargetType="PasswordBox">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
                         <Grid>
-                            <!-- the real input host -->
                             <ScrollViewer x:Name="PART_ContentHost"
                         Margin="{TemplateBinding Padding}"
                         VerticalAlignment="Center"
@@ -116,7 +113,6 @@
                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                         Background="Transparent"/>
 
-                            <!-- the watermark placeholder -->
                             <TextBlock x:Name="PART_Watermark"
                      Text="{TemplateBinding Tag}"
                      Foreground="{DynamicResource BackgroundColorText}"
@@ -184,7 +180,7 @@
         <Setter Property="FontSize" Value="16" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="Foreground" Value="Red" />
+        <Setter Property="Foreground" Value="{DynamicResource CloseButtonColor}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template">
@@ -207,15 +203,16 @@
     </Style>
 
     <Style x:Key="ButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="{DynamicResource ButtonColor}"/>
         <Setter Property="Foreground" Value="{DynamicResource BackgroundColorText}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
         <Setter Property="FontFamily" Value="{StaticResource Poppins-Semibold}" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="Border" Background="{DynamicResource ButtonColor}" Width="85" Height="30" BorderThickness="2" BorderBrush="{DynamicResource ButtonColor}" CornerRadius="10">
-                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Border x:Name="Border" Background="{TemplateBinding Background}" Width="85" Height="30" BorderThickness="2" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                        <ContentPresenter Content="{TemplateBinding Content}" TextElement.Foreground="{DynamicResource ButtonTextColor}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True" >
@@ -235,7 +232,7 @@
                 <ControlTemplate TargetType="ContentControl">
                     <Border Background="{TemplateBinding Background}" CornerRadius="20" BorderBrush="{DynamicResource BorderColor}" BorderThickness="2" Margin="10">
                         <Border.Effect>
-                            <DropShadowEffect BlurRadius="20" Color="{DynamicResource DropShadowColor}" Opacity="0.5" ShadowDepth="0" Direction="0">
+                            <DropShadowEffect BlurRadius="20" Color="{DynamicResource DropShadowColor}" Opacity="0.05" ShadowDepth="0" Direction="0">
 
                             </DropShadowEffect>
                         </Border.Effect>
@@ -255,4 +252,127 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="NavigationRadioButton" TargetType="RadioButton">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Margin" Value="0,0,25,0" />
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="Foreground" Value="{DynamicResource BackgroundColorText}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <fa:FontAwesome x:Name="IconElement" Icon="{TemplateBinding Tag}" Foreground="{TemplateBinding Foreground}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto"  Height="Auto" Margin="0,0,8,0"/>
+
+                        <ContentPresenter x:Name="TextElement" ContentSource="Content" RecognizesAccessKey="True" VerticalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}">
+
+                        </ContentPresenter>
+                    </StackPanel>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            
+                            <Setter TargetName="TextElement" Property="TextElement.Foreground" Value="{DynamicResource ButtonColor}"/>
+                            <Setter TargetName="TextElement" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="0"  ShadowDepth="2" Color="{DynamicResource TextDropShadowColor}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="TextElement" Property="TextElement.Foreground" Value="{DynamicResource ButtonColor}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NavigationButton" TargetType="Button">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Height" Value="70" />
+        <Setter Property="Margin" Value="0,0,25,0" />
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="Foreground" Value="{DynamicResource BackgroundColorText}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <fa:FontAwesome x:Name="IconElement" Icon="{TemplateBinding Tag}" Foreground="{TemplateBinding Foreground}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="Auto"  Height="Auto" Margin="0,0,8,0"/>
+
+                        <ContentPresenter x:Name="TextElement" ContentSource="Content" RecognizesAccessKey="True" VerticalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}">
+
+                        </ContentPresenter>
+                    </StackPanel>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="IconElement" Property="Foreground" Value="{DynamicResource ButtonColor}"/>
+                            <Setter TargetName="TextElement" Property="TextElement.Foreground" Value="{DynamicResource ButtonColor}"/>
+                            <Setter TargetName="TextElement" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="0"  ShadowDepth="2" Color="{DynamicResource TextDropShadowColor}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ToolTipStyle" TargetType="ToolTip">
+        <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource BackgroundColorText}" />
+        <Setter Property="FontFamily" Value="{DynamicResource Poppins-Semibold}" />
+    </Style>
+
+    <Style x:Key="AddButtonInvalid" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
+        <Setter Property="ToolTipService.InitialShowDelay" Value="100" />
+        <Setter Property="ToolTipService.ToolTip">
+            <Setter.Value>
+                <ToolTip Style="{StaticResource ToolTipStyle}">
+                    <TextBlock Text="Username or Password missing!" />
+                </ToolTip>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AddButtonValid" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
+        
+    </Style>
+
+    <Style x:Key="AddButtonDone" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    <RotateTransform Angle="0"/>
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsAdded}" Value="True">
+                <Setter Property="Visibility" Value="Visible"/>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" To="1.2" Duration="0:0:0.2" AutoReverse="True"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" To="1.2" Duration="0:0:0.2" AutoReverse="True"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[1].(RotateTransform.Angle)" To="360" Duration="0:0:0.4"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

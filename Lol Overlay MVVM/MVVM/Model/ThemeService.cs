@@ -5,9 +5,6 @@ using System.Windows;
 
 namespace Lol_Overlay_MVVM.MVVM.Model
 {
-    /// 
-    /// Implements theme loading by swapping ResourceDictionary files from a 'Themes' folder.
-    /// 
     public class ThemeService : IThemeService
     {
         private readonly string[] _themePaths;
@@ -39,12 +36,12 @@ namespace Lol_Overlay_MVVM.MVVM.Model
             if (!File.Exists(path)) return;
             try
             {
-                var rd = new ResourceDictionary { Source = new Uri(path, UriKind.Absolute) };
+                var resourceDictionary = new ResourceDictionary { Source = new Uri(path, UriKind.Absolute) };
                 var merged = Application.Current.Resources.MergedDictionaries;
                 merged.RemoveAt(0);
-                merged.Insert(0, rd);
+                merged.Insert(0, resourceDictionary);
             }
-            catch { /* ignore malformed XAML */ }
+            catch {}
         }
     }
 }

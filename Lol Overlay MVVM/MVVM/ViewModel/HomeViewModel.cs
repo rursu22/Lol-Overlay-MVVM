@@ -16,7 +16,6 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
 {
     public partial class HomeViewModel : Core.ViewModel
     {
-        // Properties and services
 
         [ObservableProperty]
         public ObservableCollection<AccountViewModel> accounts = new ObservableCollection<AccountViewModel>();
@@ -31,9 +30,6 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
         private readonly IEncryptionService _encryptionService;
         private readonly ILoginService _loginService;
 
-
-
-        // Commands
         public IRelayCommand<AccountViewModel> SelectAccountCommand { get; }
         public IRelayCommand<AccountViewModel> RemoveAccountCommand { get; }
         public IRelayCommand NavigateToAddAccountCommand { get; }
@@ -57,8 +53,6 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
             LoadAccountsCommand = new AsyncRelayCommand(ExecuteLoadAccounts);
 
         }
-
-        // Execute methods
 
         private async Task ExecuteLoadAccounts()
         {

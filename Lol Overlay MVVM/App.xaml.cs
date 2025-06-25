@@ -10,9 +10,6 @@ using System.Windows.Media;
 
 namespace Lol_Overlay_MVVM
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         private readonly ServiceProvider _serviceProvider;

@@ -14,21 +14,23 @@
             <i:InvokeCommandAction Command="{Binding LoadAccountsCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+
+    <Border CornerRadius="0,0,25,25" BorderBrush="{DynamicResource BackgroundColor}" Background="{DynamicResource BackgroundColor}">
+        <Grid Background="Transparent">
+            <ItemsControl ItemsSource="{Binding Accounts}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
         
-    <Grid Background="{DynamicResource BackgroundColor}">
-        <ItemsControl ItemsSource="{Binding Accounts}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type vm:AccountViewModel}">
-                    <ContentControl Style="{StaticResource AccountCard}"/>
-                </DataTemplate>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:AccountViewModel}">
+                        <ContentControl Style="{StaticResource AccountCard}"/>
+                    </DataTemplate>
                 
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </Grid>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Border>
 </UserControl>

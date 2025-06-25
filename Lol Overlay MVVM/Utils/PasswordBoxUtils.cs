@@ -1,5 +1,4 @@
-﻿// Helpers/PasswordBoxHelper.cs
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace Lol_Overlay_MVVM.Utils
@@ -31,8 +30,6 @@ namespace Lol_Overlay_MVVM.Utils
                 typeof(string),
                 typeof(PasswordBoxUtils),
                 new PropertyMetadata(string.Empty, OnBoundPasswordChanged));
-
-        // getters/setters omitted for brevity...
 
         private static void OnBindPasswordChanged(DependencyObject dp, DependencyPropertyChangedEventArgs e)
         {

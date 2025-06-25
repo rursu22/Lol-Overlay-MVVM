@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:Lol_Overlay_MVVM.MVVM.View" xmlns:viewmodel="clr-namespace:Lol_Overlay_MVVM.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
         WindowStyle="None"
@@ -17,39 +18,24 @@
                 <RowDefinition Height="0.15*"/>
                 <RowDefinition Height="0.85*"/>
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" BorderThickness="0,0,0,2" CornerRadius="25,25,0,0" BorderBrush="{DynamicResource BorderColor}" Background="Transparent">
-                <Grid Background="Transparent">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*" />
-                        <ColumnDefinition Width="0.5*" />
-                    </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" BorderThickness="0,0,0,2" CornerRadius="25,25,0,0" BorderBrush="{DynamicResource BorderColor}" Background="Transparent" HorizontalAlignment="Center">
+                <StackPanel Grid.Column="0" Background="{DynamicResource BackgroundColor}" Width="Auto" Orientation="Horizontal">
+                    <RadioButton Style="{StaticResource NavigationRadioButton}" Tag="{x:Static fa:FontAwesomeIcon.Home}" Content="Home" Width="Auto" FontFamily="{StaticResource Poppins-Semibold}" Command="{Binding NavigateToHomeCommand}" IsChecked="True"/>
 
-                    <Grid Margin="20,0,0,0" Background="Transparent">
+                    <RadioButton Style="{StaticResource NavigationRadioButton}" Tag="{x:Static fa:FontAwesomeIcon.User}" Content="Add Account" Width="Auto" FontFamily="{StaticResource Poppins-Semibold}" Command="{Binding NavigateToAddAccountCommand}"/>
 
-                        <Button Style="{StaticResource HoverRoundButton}" HorizontalAlignment="Left" FontSize="20" Command="{Binding NavigateToHomeCommand}">
-                                <TextBlock  Text="Home" FontFamily="{StaticResource Poppins}"/>
-                            </Button>
-                        <Button Style="{StaticResource HoverRoundButton}" HorizontalAlignment="Center" Command="{Binding NavigateToAddAccountCommand}">
-                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" FontSize="28" FontFamily="{StaticResource Poppins}">
-                                Add
+                    <RadioButton Style="{StaticResource NavigationRadioButton}" Tag="{x:Static fa:FontAwesomeIcon.Cog}" Content="Calibrate" Width="Auto" FontFamily="{StaticResource Poppins-Semibold}" Command="{Binding NavigateToCalibrationCommand}"/>
+
+                    <Border BorderThickness="2,0,0,0" BorderBrush="{DynamicResource BorderColor}">
+                        <Button Margin="10,0,0,0" Style="{StaticResource NavigationButton}" Tag="{x:Static fa:FontAwesomeIcon.PaintBrush}" Width="Auto" FontFamily="{StaticResource Poppins-Semibold}" Command="{Binding CycleThemeCommand}">
+                            <TextBlock TextAlignment="Center">
+                                Dark
                                 <LineBreak />
-                                Accounts
+                                Theme
                             </TextBlock>
                         </Button>
-                        <Button Style="{StaticResource HoverRoundButton}" HorizontalAlignment="Right"  Command="{Binding NavigateToCalibrationCommand}">
-                            <TextBlock  Text="Calibration" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="{StaticResource Poppins}"/>
-                        </Button>
-                    </Grid>
-                
-                    <Button Grid.Column="1" Command="{Binding CycleThemeCommand}" HorizontalAlignment="Right" Margin="0,0,20,0" Style="{StaticResource HoverRoundButton}">
-                        <TextBlock Foreground="{DynamicResource BackgroundColorText}" FontFamily="{StaticResource Poppins}" TextAlignment="Center">
-                            Change
-                            <LineBreak />
-                            Theme
-                        </TextBlock>
-                    </Button>
-                
-                </Grid>
+                    </Border>
+                </StackPanel>
             </Border>
             <ContentControl Background="Transparent" Grid.Row="1" Content="{Binding Navigation.CurrentView}"/>
         </Grid>

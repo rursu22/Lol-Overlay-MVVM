@@ -8,10 +8,27 @@
              xmlns:utils="clr-namespace:Lol_Overlay_MVVM.Utils"
              xmlns:vm="clr-namespace:Lol_Overlay_MVVM.MVVM.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="480" d:DesignWidth="640" Background="{DynamicResource BackgroundColor}"
+             d:DesignHeight="480" d:DesignWidth="640" Background="Transparent"
              d:DataContext="{d:DesignInstance Type=vm:AddAccountViewModel, IsDesignTimeCreatable=True}">
 
-    <Border Background="{DynamicResource BackgroundColor}" >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="visConverter" />
+
+        <!-- Animation storyboard you’ll reuse -->
+        <Storyboard x:Key="FlyoutAnimation">
+            <DoubleAnimation
+        Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
+        To="1.2" Duration="0:0:0.2" AutoReverse="True"/>
+            <DoubleAnimation
+        Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
+        To="1.2" Duration="0:0:0.2" AutoReverse="True"/>
+            <DoubleAnimation
+        Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(RotateTransform.Angle)"
+        To="360" Duration="0:0:0.4" AutoReverse="False"/>
+        </Storyboard>
+    </UserControl.Resources>
+
+    <Border Background="{DynamicResource BackgroundColor}" CornerRadius="25">
         <Grid>
             <!-- Back button, using your HoverRoundButton style -->
 
@@ -26,16 +43,13 @@
                     <ColumnDefinition Width="0.80*" />
                     <ColumnDefinition Width="0.10*" />
                 </Grid.ColumnDefinitions>
-                <!-- Username textbox with watermark style -->
+                
                 <Border  Grid.Row="1" Grid.Column="1" CornerRadius="20" BorderThickness="2" BorderBrush="{DynamicResource BorderColor}">
                     <StackPanel Margin="0,40,0,0">
                         <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                              Tag="Username"
                              Style="{StaticResource WatermarkTextBox}" />
-
-                        <!-- Password row -->
                         <Grid>
-                            <!-- Hidden -->
                             <PasswordBox
                                     Tag="Password"
                                     Style="{StaticResource WatermarkPasswordBox}"
@@ -46,12 +60,10 @@
                                     utils:PasswordBoxUtils.BoundPassword="{Binding PlainPassword, Mode=TwoWay}"
                                     Visibility="{Binding ShowPassword, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
 
-                            <!-- Visible -->
                             <TextBox Text="{Binding PlainPassword, Mode=TwoWay}"
                                Style="{StaticResource WatermarkTextBox}"
                                Visibility="{Binding ShowPassword, Converter={StaticResource BoolToVisibilityConverter}}" />
 
-                            <!-- Show/Hide toggle -->
                             <CheckBox IsChecked="{Binding ShowPassword}"
                                 Style="{StaticResource ShowPasswordButton}"
                                 Width="50"
@@ -61,13 +73,34 @@
                                 HorizontalAlignment="Right"
                                 Margin="0,0,60,0" />
                         </Grid>
-
-                        <!-- Action buttons -->
                         <Grid Margin="0,80,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Button Content="Add" Command="{Binding AddAccountCommand}" Style="{StaticResource ButtonStyle}" />
+
+                            <Button Style="{StaticResource AddButtonInvalid}" fa:Awesome.Content="Close" Background="Red" BorderBrush="{DynamicResource BorderColor}" Visibility="{Binding IsAccountValid, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
+                            
+                            <Button Style="{StaticResource AddButtonValid}" Content="Add" Command="{Binding AddAccountCommand}" Visibility="{Binding IsAccountValid, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                            <Button Style="{StaticResource AddButtonDone}" Background="Green" BorderBrush="{DynamicResource BorderColor}" fa:Awesome.Content="Check" Visibility="{Binding IsAdded, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Button.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <RotateTransform/>
+                                    </TransformGroup>
+                                </Button.RenderTransform>
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="Button.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" To="1.2" Duration="0:0:0.2" AutoReverse="True"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" To="1.2" Duration="0:0:0.2" AutoReverse="True"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[1].(RotateTransform.Angle)" To="360" Duration="0:0:0.4"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
                         </Grid>
                     </StackPanel>
                 </Border>

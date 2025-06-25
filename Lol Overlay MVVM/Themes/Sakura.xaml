@@ -6,8 +6,12 @@
     <SolidColorBrush x:Key="BackgroundColorText" Color="#a61352"/>
     <SolidColorBrush x:Key="HoverColor" Color="#493489"/>
     <SolidColorBrush x:Key="BorderColor" Color="#f55d9e" />
-    <SolidColorBrush x:Key="ButtonColor" Color="#f781b4" />
+    <SolidColorBrush x:Key="ButtonColor" Color="#f7b2d0" />
+    <SolidColorBrush x:Key="CloseButtonColor" Color="#a61352" />
     <Color x:Key="DropShadowColor">
+        #a61352
+    </Color>
+    <Color x:Key="TextDropShadowColor">
         #a61352
     </Color>
 </ResourceDictionary>

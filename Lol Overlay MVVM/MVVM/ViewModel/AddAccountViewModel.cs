@@ -1,5 +1,4 @@
-﻿// ViewModels/AddAccountViewModel.cs
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -28,13 +27,9 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
             _navigation = navigation;
             _themeService = themeService;
 
-            // Commands
             AddAccountCommand = new AsyncRelayCommand(ExecuteAddAccountAsync, CanExecuteAddAccount);
-            BackCommand = new RelayCommand(ExecuteBack);
-            ChangeThemeCommand = new RelayCommand(ExecuteChangeTheme);
         }
 
-        //–– bindable properties ––
         [ObservableProperty]
         private string username = string.Empty;
 
@@ -44,14 +39,21 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
         [ObservableProperty]
         private bool showPassword;
 
+        [ObservableProperty]
+        private bool isAdded;
+
+        public bool IsAccountValid => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(PlainPassword);
+
         partial void OnUsernameChanged(string? oldValue, string newValue)
         {
             AddAccountCommand.NotifyCanExecuteChanged();
+            OnPropertyChanged(nameof(IsAccountValid));
         }
 
         partial void OnPlainPasswordChanged(string? oldValue, string newValue)
         {
             AddAccountCommand.NotifyCanExecuteChanged();
+            OnPropertyChanged(nameof(IsAccountValid));
         }
 
         private async Task ExecuteAddAccountAsync()
@@ -61,7 +63,13 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
             Username = string.Empty;
             PlainPassword = string.Empty;
             AddAccountCommand.NotifyCanExecuteChanged();
+            OnPropertyChanged(nameof(IsAccountValid));
 
+            IsAdded = true;
+
+            await Task.Delay(TimeSpan.FromMilliseconds(600));
+
+            IsAdded = false;
         }
 
         private bool CanExecuteAddAccount()
@@ -69,15 +77,5 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
             return !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(PlainPassword);
         }
 
-        private void ExecuteBack()
-        {
-            // simply go back to HomeViewModel
-            _navigation.NavigateTo<HomeViewModel>();
-        }
-
-        private void ExecuteChangeTheme()
-        {
-            _themeService.CycleTheme();
-        }
     }
 }

@@ -12,14 +12,12 @@ namespace Lol_Overlay_MVVM.MVVM.Model
     {
         public Task<Point> CaptureClickAsync(string instruction)
         {
-            // We’ll show the overlay modally and return the click point immediately.
             var overlay = new FullscreenCalibrationOverlay(instruction)
             {
                 Owner = Application.Current.MainWindow, // optional
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
 
-            // ShowDialog blocks until the window closes.
             var result = overlay.ShowDialog();
 
             if (overlay.ClickPoint.HasValue)

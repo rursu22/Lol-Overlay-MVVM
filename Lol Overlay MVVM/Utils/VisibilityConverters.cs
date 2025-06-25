@@ -7,8 +7,6 @@ namespace Lol_Overlay_MVVM.Utils
 {
     public class InverseBooleanToVisibilityConverter : IValueConverter
     {
-        // True  => Collapsed
-        // False => Visible
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is bool b && b)
