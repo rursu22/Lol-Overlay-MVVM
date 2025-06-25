@@ -7,6 +7,9 @@ WPF (Windows Presentation Foundation) overlay written in C# that allows for secu
 Follows MVVM (Model View ViewModel) architecture to split the UI from the logic, which allows for easy addition of features. 
 
 - Account form where you can add your account data
+
+![Image](https://github.com/user-attachments/assets/c805b528-ee33-42b4-b4d0-3b5484207f49)
+  
 - Local Encryption of the account's password (the application does not interact with any servers, it's fully local to enhance security)
 - Ability to remove previously stored accounts
 - Capability of adding multiple accounts
