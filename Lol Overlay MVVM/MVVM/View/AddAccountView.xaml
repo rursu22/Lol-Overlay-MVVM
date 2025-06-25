@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="Lol_Overlay_MVVM.MVVM.View.AddAccountView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lol_Overlay_MVVM.MVVM.View"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:utils="clr-namespace:Lol_Overlay_MVVM.Utils"
+             xmlns:vm="clr-namespace:Lol_Overlay_MVVM.MVVM.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="480" d:DesignWidth="640" Background="{DynamicResource BackgroundColor}"
+             d:DataContext="{d:DesignInstance Type=vm:AddAccountViewModel, IsDesignTimeCreatable=True}">
+
+    <Border Background="{DynamicResource BackgroundColor}" >
+        <Grid>
+            <!-- Back button, using your HoverRoundButton style -->
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.15*" />
+                    <RowDefinition Height="0.75*" />
+                    <RowDefinition Height="0.10*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.10*" />
+                    <ColumnDefinition Width="0.80*" />
+                    <ColumnDefinition Width="0.10*" />
+                </Grid.ColumnDefinitions>
+                <!-- Username textbox with watermark style -->
+                <Border  Grid.Row="1" Grid.Column="1" CornerRadius="20" BorderThickness="2" BorderBrush="{DynamicResource BorderColor}">
+                    <StackPanel Margin="0,40,0,0">
+                        <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                             Tag="Username"
+                             Style="{StaticResource WatermarkTextBox}" />
+
+                        <!-- Password row -->
+                        <Grid>
+                            <!-- Hidden -->
+                            <PasswordBox
+                                    Tag="Password"
+                                    Style="{StaticResource WatermarkPasswordBox}"
+                                    utils:PasswordBoxUtils.BindPassword="True"
+                                    BorderThickness="0,0,0,2"
+                                    Height="70"
+                                    Width="400"
+                                    utils:PasswordBoxUtils.BoundPassword="{Binding PlainPassword, Mode=TwoWay}"
+                                    Visibility="{Binding ShowPassword, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
+
+                            <!-- Visible -->
+                            <TextBox Text="{Binding PlainPassword, Mode=TwoWay}"
+                               Style="{StaticResource WatermarkTextBox}"
+                               Visibility="{Binding ShowPassword, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                            <!-- Show/Hide toggle -->
+                            <CheckBox IsChecked="{Binding ShowPassword}"
+                                Style="{StaticResource ShowPasswordButton}"
+                                Width="50"
+                                Height="50"
+                                FontSize="28"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,60,0" />
+                        </Grid>
+
+                        <!-- Action buttons -->
+                        <Grid Margin="0,80,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Content="Add" Command="{Binding AddAccountCommand}" Style="{StaticResource ButtonStyle}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

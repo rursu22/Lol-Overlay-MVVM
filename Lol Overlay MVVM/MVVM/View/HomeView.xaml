@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="Lol_Overlay_MVVM.MVVM.View.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lol_Overlay_MVVM.MVVM.View"
+             xmlns:vm="clr-namespace:Lol_Overlay_MVVM.MVVM.ViewModel"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="480" d:DesignWidth="640" Background="Transparent">
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadAccountsCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+        
+    <Grid Background="{DynamicResource BackgroundColor}">
+        <ItemsControl ItemsSource="{Binding Accounts}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:AccountViewModel}">
+                    <ContentControl Style="{StaticResource AccountCard}"/>
+                </DataTemplate>
+                
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

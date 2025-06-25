@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="Lol_Overlay_MVVM.MVVM.View.CalibrationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lol_Overlay_MVVM.MVVM.View"
+             xmlns:vm="clr-namespace:Lol_Overlay_MVVM.MVVM.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="480" d:DesignWidth="640" Background="{DynamicResource BackgroundColor}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border BorderThickness="2" BorderBrush="{DynamicResource BorderColor}"  Margin="40" CornerRadius="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding UsernamePosition}" Foreground="{DynamicResource BackgroundColorText}" FontFamily ="{StaticResource Poppins-Semibold}" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                <Button Style="{StaticResource ButtonStyle}" Grid.Column="1" Width="90" Height="30" Content="Calibrate" Command="{Binding CalibrateUsernameCommand}" />
+            </Grid>
+        </Border>
+        <Border Grid.Row="1" BorderThickness="2" BorderBrush="{DynamicResource BorderColor}"  Margin="40" CornerRadius="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding PasswordPosition}" Foreground="{DynamicResource BackgroundColorText}" FontFamily ="{StaticResource Poppins-Semibold}" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                <Button Style="{StaticResource ButtonStyle}" Grid.Column="1"  Width="90" Height="30" Content="Calibrate" Command="{Binding CalibratePasswordCommand}"/>
+            </Grid>
+        </Border>
+        <Border Grid.Row="2" BorderThickness="2" BorderBrush="{DynamicResource BorderColor}"  Margin="40" CornerRadius="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding LoginPosition}" Foreground="{DynamicResource BackgroundColorText}" FontFamily ="{StaticResource Poppins-Semibold}" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                <Button Style="{StaticResource ButtonStyle}" Grid.Column="1" Width="90" Height="30" Content="Calibrate" Command="{Binding CalibrateLoginCommand}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
