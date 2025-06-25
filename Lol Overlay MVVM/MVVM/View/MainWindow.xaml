@@ -11,7 +11,12 @@
         Topmost="True"
         Left="700"
         Top="200"
-        Title="MainWindow" Height="540" Width="640" Background="Transparent" Visibility="Collapsed">
+        Title="MainWindow" 
+        Height="540" 
+        Width="640" 
+        Background="Transparent" 
+        Visibility="{Binding ShouldWindowBeVisible, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}}">
+
     <Border Background="{DynamicResource BackgroundColor}" CornerRadius="25" BorderBrush="Transparent">
         <Grid Background="Transparent">
             <Grid.RowDefinitions>

@@ -16,8 +16,6 @@
             <utils:InverseBooleanToVisibilityConverter
             x:Key="InverseBoolToVisibilityConverter" />
 
-           
-
             <DataTemplate DataType="{x:Type viewmodel:AddAccountViewModel}">
                 <view:AddAccountView />
             </DataTemplate>

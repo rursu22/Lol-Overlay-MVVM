@@ -29,6 +29,7 @@ namespace Lol_Overlay_MVVM
             services.AddSingleton<ILoginService, LoginService>();
             services.AddSingleton<ICalibrationService, CalibrationService>();
             services.AddSingleton<IComputerVisionService, ComputerVisionService>();
+            services.AddSingleton<IWindowFinderService, WindowFinderService>();
 
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
             services.AddSingleton<INavigationService>(serviceProvider => new NavigationService(serviceProvider.GetRequiredService<Func<Type, ViewModel>>()));

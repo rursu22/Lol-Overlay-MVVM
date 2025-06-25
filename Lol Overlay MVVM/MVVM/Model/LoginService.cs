@@ -187,16 +187,17 @@ namespace Lol_Overlay_MVVM.MVVM.Model
 
         public async Task ReloginAsync(string username, string password)
         {
-            System.Windows.Application.Current.MainWindow.Visibility = System.Windows.Visibility.Hidden;
             var screen = _cvService.CaptureScreen();
             var loggedInTemplate = Cv2.ImRead(_loggedInTemplatePath, ImreadModes.Color);
             var profileClick = _cvService.TemplateMatch(screen, loggedInTemplate);
+            System.Windows.Point? loginUI = null;
 
+            // Logout logic
             if (profileClick.HasValue)
             {
 
                 Click(profileClick.Value);
-                await Task.Delay(300); // allow menu to open
+                await Task.Delay(300); 
                 var logoutTemplate = Cv2.ImRead(_logOutTemplatePath, ImreadModes.Color);
                 screen = _cvService.CaptureScreen();
                 var logoutClick = _cvService.TemplateMatch(screen, logoutTemplate);
@@ -209,21 +210,21 @@ namespace Lol_Overlay_MVVM.MVVM.Model
                 }
             }
 
+            // Login logic
             var loginTemplate = Cv2.ImRead(_loginTemplate, ImreadModes.Color);
-            System.Windows.Point? loginUi = null;
+            loginUI = null;
             for (int i = 0; i < 15; i++)
             {
                 await Task.Delay(1000);
                 screen = _cvService.CaptureScreen();
-                loginUi = _cvService.TemplateMatch(screen, loginTemplate);
+                loginUI = _cvService.TemplateMatch(screen, loginTemplate);
 
-                if (loginUi.HasValue)
+                if (loginUI.HasValue)
                 {
                     break;
                 }
             }
-
-            if(!loginUi.HasValue)
+            if (!loginUI.HasValue)
             {
                 Debug.WriteLine("Could not find login screen");
             } else
@@ -232,9 +233,6 @@ namespace Lol_Overlay_MVVM.MVVM.Model
                 clickPasswordAndType(password);
                 clickLogin();
             }
-
-
-            System.Windows.Application.Current.MainWindow.Visibility = System.Windows.Visibility.Visible;
         }
 
         
