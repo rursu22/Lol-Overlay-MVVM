@@ -245,7 +245,8 @@
                             <Button Style="{StaticResource CloseButton}" Grid.Row="0" Command="{Binding RemoveAccountCommand}"/>
                             <TextBlock Text="{Binding Username}" FontFamily="{StaticResource Poppins-Semibold}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22"></TextBlock>
 
-                            <Button Style="{StaticResource ButtonStyle}" Grid.Row="1" Content="Login" Command="{Binding SelectAccountCommand}"/>
+                            <Button Style="{StaticResource ButtonStyle}" Grid.Row="1" HorizontalAlignment="Left" Content="Login" Command="{Binding SelectAccountCommand}"/>
+                            <Button Style="{StaticResource ButtonStyle}" Grid.Row="1" HorizontalAlignment="Right" Content="Relog" Command="{Binding RelogAccountCommand}"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>

@@ -18,7 +18,7 @@ namespace Lol_Overlay_MVVM.MVVM.View
     /// <summary>
     /// Interaction logic for CalibrationView.xaml
     /// </summary>
-    public partial class CalibrationView : UserControl
+    public partial class CalibrationView : System.Windows.Controls.UserControl
     {
         public CalibrationView()
         {

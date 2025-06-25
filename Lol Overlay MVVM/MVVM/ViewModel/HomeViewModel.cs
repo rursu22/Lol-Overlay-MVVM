@@ -38,6 +38,8 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
 
         public IAsyncRelayCommand LoadAccountsCommand { get; }
 
+        public IRelayCommand<AccountViewModel> RelogAccountCommand { get; }
+
 
         public HomeViewModel(IAccountStore accountStore, INavigationService navigationService, ILoginService loginService, IEncryptionService encryptionService)
         {
@@ -51,6 +53,7 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
             NavigateToAddAccountCommand = new RelayCommand(ExecuteNavigateToAddAccount);
             NavigateToCalibrationCommand = new RelayCommand(ExecuteNavigateToCalibration);
             LoadAccountsCommand = new AsyncRelayCommand(ExecuteLoadAccounts);
+            RelogAccountCommand = new RelayCommand<AccountViewModel>(ExecuteRelogAccount);
 
         }
 
@@ -65,7 +68,8 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
                     account.Key,
                     account.Value,
                     ExecuteSelectAccount,
-                    ExecuteRemoveAccount));
+                    ExecuteRemoveAccount,
+                    ExecuteRelogAccount));
             }
 
             while( Accounts.Count < (Rows * Columns))
@@ -73,7 +77,16 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
                 Accounts.Add(new AccountViewModel(
                     "",
                     "",
-                    ExecuteSelectAccount, ExecuteRemoveAccount));
+                    ExecuteSelectAccount, ExecuteRemoveAccount, ExecuteRelogAccount));
+            }
+        }
+
+        private async void ExecuteRelogAccount(AccountViewModel viewModel)
+        {
+            if (!string.IsNullOrEmpty(viewModel.Username) && !string.IsNullOrEmpty(viewModel.Password))
+            {
+                string password = _encryptionService.Decrypt(viewModel.Password);
+                await _loginService.ReloginAsync(viewModel.Username, password);
             }
         }
 

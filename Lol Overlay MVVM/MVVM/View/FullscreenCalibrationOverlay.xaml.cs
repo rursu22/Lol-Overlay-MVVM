@@ -18,7 +18,7 @@ namespace Lol_Overlay_MVVM.MVVM.View
     
     public partial class FullscreenCalibrationOverlay : Window
     {
-        public Point? ClickPoint { get; private set; }
+        public System.Windows.Point? ClickPoint { get; private set; }
 
         public FullscreenCalibrationOverlay(string instruction)
         {

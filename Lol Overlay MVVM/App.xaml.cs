@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Lol_Overlay_MVVM.Core;
+using Lol_Overlay_MVVM.MVVM.Interfaces;
 using Lol_Overlay_MVVM.MVVM.Model;
 using Lol_Overlay_MVVM.MVVM.View;
 using Lol_Overlay_MVVM.MVVM.ViewModel;
@@ -10,7 +11,7 @@ using System.Windows.Media;
 
 namespace Lol_Overlay_MVVM
 {
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
         private readonly ServiceProvider _serviceProvider;
 
@@ -27,6 +28,7 @@ namespace Lol_Overlay_MVVM
             services.AddSingleton<IEncryptionService, EncryptionService>();
             services.AddSingleton<ILoginService, LoginService>();
             services.AddSingleton<ICalibrationService, CalibrationService>();
+            services.AddSingleton<IComputerVisionService, ComputerVisionService>();
 
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
             services.AddSingleton<INavigationService>(serviceProvider => new NavigationService(serviceProvider.GetRequiredService<Func<Type, ViewModel>>()));

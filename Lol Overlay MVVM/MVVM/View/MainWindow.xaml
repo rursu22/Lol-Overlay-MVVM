@@ -11,7 +11,7 @@
         Topmost="True"
         Left="700"
         Top="200"
-        Title="MainWindow" Height="540" Width="640" Background="Transparent">
+        Title="MainWindow" Height="540" Width="640" Background="Transparent" Visibility="Collapsed">
     <Border Background="{DynamicResource BackgroundColor}" CornerRadius="25" BorderBrush="Transparent">
         <Grid Background="Transparent">
             <Grid.RowDefinitions>
@@ -29,7 +29,7 @@
                     <Border BorderThickness="2,0,0,0" BorderBrush="{DynamicResource BorderColor}">
                         <Button Margin="10,0,0,0" Style="{StaticResource NavigationButton}" Tag="{x:Static fa:FontAwesomeIcon.PaintBrush}" Width="Auto" FontFamily="{StaticResource Poppins-Semibold}" Command="{Binding CycleThemeCommand}">
                             <TextBlock TextAlignment="Center">
-                                Dark
+                                Sage
                                 <LineBreak />
                                 Theme
                             </TextBlock>

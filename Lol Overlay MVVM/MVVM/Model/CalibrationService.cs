@@ -10,11 +10,11 @@ namespace Lol_Overlay_MVVM.MVVM.Model
 {
     public class CalibrationService : ICalibrationService
     {
-        public Task<Point> CaptureClickAsync(string instruction)
+        public Task<System.Windows.Point> CaptureClickAsync(string instruction)
         {
             var overlay = new FullscreenCalibrationOverlay(instruction)
             {
-                Owner = Application.Current.MainWindow, // optional
+                Owner = System.Windows.Application.Current.MainWindow, // optional
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
 

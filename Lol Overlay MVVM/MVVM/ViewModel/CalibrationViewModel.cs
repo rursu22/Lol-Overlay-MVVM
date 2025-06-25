@@ -46,7 +46,7 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
         private async Task ExecuteCalibrateUsername()
         {
 
-            var window = Application.Current.MainWindow;
+            var window = System.Windows.Application.Current.MainWindow;
             window?.Hide();
 
             var newPosition = await _calibrationService.CaptureClickAsync("username box");
@@ -58,7 +58,7 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
         private async Task ExecuteCalibratePassword()
         {
 
-            var window = Application.Current.MainWindow;
+            var window = System.Windows.Application.Current.MainWindow;
             window?.Hide();
 
             var newPosition = await _calibrationService.CaptureClickAsync("password box");
@@ -69,7 +69,7 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
         }
         private async Task ExecuteCalibrateLogin()
         {
-            var window = Application.Current.MainWindow;
+            var window = System.Windows.Application.Current.MainWindow;
             window?.Hide();
 
             var newPosition = await _calibrationService.CaptureClickAsync("login button");

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Lol_Overlay_MVVM.MVVM.Interfaces;
+using OpenCvSharp;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -9,6 +12,13 @@ namespace Lol_Overlay_MVVM.MVVM.Model
 {
     public class LoginService : ILoginService
     {
+        private readonly IComputerVisionService _cvService;
+        private readonly string _loggedInTemplatePath = "Images/loggedIn.png";
+        private readonly string _logOutTemplatePath = "Images/logoutButton.png";
+        private readonly string _loginTemplate = "Images/login.png";
+        private readonly string _alreadyLoggedInTemplate = "Images/alreadyLoggedInTemplate.png";
+        private readonly string _playTemplate = "Images/playTemplate.png";
+
         const uint INPUT_MOUSE = 0;
         const uint INPUT_KEYBOARD = 1;
 
@@ -17,6 +27,10 @@ namespace Lol_Overlay_MVVM.MVVM.Model
 
         const uint KEYEVENTF_KEYUP = 0x0002;
         const uint KEYEVENTF_UNICODE = 0x0004;
+
+        private const ushort VK_CONTROL = 0x11;
+        private const ushort VK_A = 0x41;
+        private const ushort VK_DELETE = 0x2E;
 
         private System.Windows.Point usernameBoxPosition = new System.Windows.Point(380, 380);
         private System.Windows.Point passwordBoxPosition = new System.Windows.Point(380, 440);
@@ -60,19 +74,9 @@ namespace Lol_Overlay_MVVM.MVVM.Model
         [DllImport("user32.dll")]
         static extern bool SetCursorPos(int x, int y);
 
-        public void Click(System.Windows.Point position)
+        public LoginService(IComputerVisionService cvService)
         {
-
-            SetCursorPos((int)position.X, (int)position.Y);
-            var inputs = new INPUT[2];
-
-            inputs[0].type = INPUT_MOUSE;
-            inputs[0].U.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
-
-            inputs[1].type = INPUT_MOUSE;
-            inputs[1].U.mi.dwFlags = MOUSEEVENTF_LEFTUP;
-
-            SendInput((uint)inputs.Length, inputs, Marshal.SizeOf<INPUT>());
+            _cvService = cvService; 
         }
 
         public void setUsernameBoxPosition(System.Windows.Point position)
@@ -105,6 +109,136 @@ namespace Lol_Overlay_MVVM.MVVM.Model
             return loginButtonPosition;
         }
 
+        public void Click(System.Windows.Point position)
+        {
+
+            SetCursorPos((int)position.X, (int)position.Y);
+            var inputs = new INPUT[2];
+
+            inputs[0].type = INPUT_MOUSE;
+            inputs[0].U.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
+
+            inputs[1].type = INPUT_MOUSE;
+            inputs[1].U.mi.dwFlags = MOUSEEVENTF_LEFTUP;
+
+            SendInput((uint)inputs.Length, inputs, Marshal.SizeOf<INPUT>());
+        }
+
+
+        private void SendKey(ushort vk, bool keyUp = false)
+        {
+            var input = new INPUT
+            {
+                type = INPUT_KEYBOARD,
+                U = new InputUnion
+                {
+                    ki = new KEYBDINPUT
+                    {
+                        wVk = vk,
+                        wScan = 0,
+                        dwFlags = keyUp ? KEYEVENTF_KEYUP : 0,
+                        time = 0,
+                        dwExtraInfo = UIntPtr.Zero
+                    }
+                }
+            };
+            SendInput(1, new[] { input }, Marshal.SizeOf<INPUT>());
+        }
+
+        private void ClearTextBox()
+        {
+            // Function to start CTRL-A + Delete keyboard events, i.e, select everything and then delete.
+            SendKey(VK_CONTROL, keyUp: false);
+            SendKey(VK_A, keyUp: false);
+            SendKey(VK_A, keyUp: true);
+            SendKey(VK_CONTROL, keyUp: true);
+
+            Thread.Sleep(50);
+
+            SendKey(VK_DELETE, keyUp: false);
+            SendKey(VK_DELETE, keyUp: true);
+        }
+
+        private async Task CheckForPlayButton()
+        {
+            var playTemplate = Cv2.ImRead(_playTemplate, ImreadModes.Color);
+            var alreadyLoggedInTemplate = Cv2.ImRead(_alreadyLoggedInTemplate, ImreadModes.Color);
+            for( int i = 0; i < 7; i++)
+            {
+                await Task.Delay(1000);
+                var screen = _cvService.CaptureScreen();
+                var playTemplateMatched = _cvService.TemplateMatch(screen, playTemplate);
+                var alreadyLoggedIn = _cvService.TemplateMatch(screen, alreadyLoggedInTemplate);
+
+                if(alreadyLoggedIn.HasValue)
+                {
+                    break;
+                }
+
+                if (playTemplateMatched.HasValue)
+                {
+                    Click(playTemplateMatched.Value);
+                    break;
+                }
+            }
+            
+            
+        }
+
+        public async Task ReloginAsync(string username, string password)
+        {
+            System.Windows.Application.Current.MainWindow.Visibility = System.Windows.Visibility.Hidden;
+            var screen = _cvService.CaptureScreen();
+            var loggedInTemplate = Cv2.ImRead(_loggedInTemplatePath, ImreadModes.Color);
+            var profileClick = _cvService.TemplateMatch(screen, loggedInTemplate);
+
+            if (profileClick.HasValue)
+            {
+
+                Click(profileClick.Value);
+                await Task.Delay(300); // allow menu to open
+                var logoutTemplate = Cv2.ImRead(_logOutTemplatePath, ImreadModes.Color);
+                screen = _cvService.CaptureScreen();
+                var logoutClick = _cvService.TemplateMatch(screen, logoutTemplate);
+                if (!logoutClick.HasValue)
+                {
+                    Debug.WriteLine("Cannot find logout button");
+                } else
+                {
+                    Click(logoutClick.Value);
+                }
+            }
+
+            var loginTemplate = Cv2.ImRead(_loginTemplate, ImreadModes.Color);
+            System.Windows.Point? loginUi = null;
+            for (int i = 0; i < 15; i++)
+            {
+                await Task.Delay(1000);
+                screen = _cvService.CaptureScreen();
+                loginUi = _cvService.TemplateMatch(screen, loginTemplate);
+
+                if (loginUi.HasValue)
+                {
+                    break;
+                }
+            }
+
+            if(!loginUi.HasValue)
+            {
+                Debug.WriteLine("Could not find login screen");
+            } else
+            {
+                clickUsernameAndType(username);
+                clickPasswordAndType(password);
+                clickLogin();
+            }
+
+
+            System.Windows.Application.Current.MainWindow.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        
+
         private static void SendText(string text)
         {
             var inputs = new INPUT[text.Length * 2];
@@ -112,14 +246,12 @@ namespace Lol_Overlay_MVVM.MVVM.Model
 
             foreach (char c in text)
             {
-                // Handle the key down event
                 inputs[idx].type = INPUT_KEYBOARD;
                 inputs[idx].U.ki.wVk = 0;
                 inputs[idx].U.ki.wScan = c;
                 inputs[idx].U.ki.dwFlags = KEYEVENTF_UNICODE;
                 idx++;
 
-                // Handle the key up event
                 inputs[idx].type = INPUT_KEYBOARD;
                 inputs[idx].U.ki.wVk = 0;
                 inputs[idx].U.ki.wScan = c;
@@ -133,6 +265,8 @@ namespace Lol_Overlay_MVVM.MVVM.Model
         {
             Click(position);
             Thread.Sleep(postClickDelayMs);
+            ClearTextBox();
+            Thread.Sleep(50);
             SendText(text);
         }
 
@@ -146,9 +280,10 @@ namespace Lol_Overlay_MVVM.MVVM.Model
             ClickAndType(passwordBoxPosition, text, postClickDelayMs);
         }
 
-        public void clickLogin()
+        public async void clickLogin()
         {
             Click(loginButtonPosition);
+            await CheckForPlayButton();
         }
     }
 }

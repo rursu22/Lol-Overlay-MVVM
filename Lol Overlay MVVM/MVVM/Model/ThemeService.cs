@@ -37,7 +37,7 @@ namespace Lol_Overlay_MVVM.MVVM.Model
             try
             {
                 var resourceDictionary = new ResourceDictionary { Source = new Uri(path, UriKind.Absolute) };
-                var merged = Application.Current.Resources.MergedDictionaries;
+                var merged = System.Windows.Application.Current.Resources.MergedDictionaries;
                 merged.RemoveAt(0);
                 merged.Insert(0, resourceDictionary);
             }

@@ -18,7 +18,7 @@ namespace Lol_Overlay_MVVM.MVVM.View
     /// <summary>
     /// Interaction logic for AddAccountView.xaml
     /// </summary>
-    public partial class AddAccountView : UserControl
+    public partial class AddAccountView : System.Windows.Controls.UserControl
     {
         public AddAccountView()
         {

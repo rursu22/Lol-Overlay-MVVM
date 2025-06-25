@@ -25,5 +25,7 @@ namespace Lol_Overlay_MVVM.MVVM.Model
         public void clickPasswordAndType(string text, int postClickDelayMS = 100);
 
         public void clickLogin();
+
+        public Task ReloginAsync(string username, string password);
     }
 }
