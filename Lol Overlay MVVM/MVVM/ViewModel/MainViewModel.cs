@@ -78,7 +78,6 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
             {
                 bool leagueReady = _windowFinderService.isLeagueWindowReady();
                 bool leagueOrOverlayFocused = _windowFinderService.IsLeagueOrOverlayForeground();
-                Debug.WriteLine(StartWithWindows);
                 ShouldWindowBeVisible = leagueReady && leagueOrOverlayFocused;
             };
 
@@ -95,7 +94,6 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
             using var rk = Registry.CurrentUser.OpenSubKey(
                 @"Software\Microsoft\Windows\CurrentVersion\Run", writable: false);
             var val = rk?.GetValue("LoLAccountOverlay") as string;
-            // compare to your EXE path
             var exe = $"\"{Environment.ProcessPath}\"";
             return StringComparer.OrdinalIgnoreCase.Equals(val, exe);
         }
