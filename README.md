@@ -30,6 +30,10 @@ A WPF (Windows Presentation Foundation) overlay written in C# for securely stori
 - Persisted across restarts  
 <img src="https://github.com/user-attachments/assets/bce0812e-cd26-4451-a582-eed92ccea31e" alt="Theme Preview" width="400" />
 
+## Startup with Windows
+
+Right-click the tray icon → **Start with Windows** to toggle auto-launch on login.
+
 ---
 
 ## Architecture
@@ -41,15 +45,9 @@ A WPF (Windows Presentation Foundation) overlay written in C# for securely stori
 
 ---
 
-## Startup with Windows
-
-Right-click the tray icon → **Start with Windows** to toggle auto-launch on login.
-
----
-
 ## Getting Started
 
-1. Download the latest ZIP from our [Releases page](https://github.com/your-repo/LoL-Account-Overlay/releases)
+1. Download the latest ZIP from our [Releases page](https://github.com/rursu22/LoL-Account-MVVM/releases)
 2. Run "Lol Overlay MVVM.exe"
 
 ---
