@@ -4,5 +4,7 @@
     {
         void LoadInitialTheme();
         void CycleTheme();
+
+        string GetCurrentThemeName();
     }
 }

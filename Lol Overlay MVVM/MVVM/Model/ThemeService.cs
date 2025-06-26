@@ -18,6 +18,17 @@ namespace Lol_Overlay_MVVM.MVVM.Model
             _currentIndex = 0;
         }
 
+        public string GetCurrentThemeName()
+        {
+            string themeName = _themePaths[_currentIndex];
+            string[] nameSplit = themeName.Split("\\");
+            string xamlName = nameSplit[nameSplit.Length - 1];
+
+            string actualName = xamlName.Split('.')[0];
+
+            return actualName;
+        }
+
         public void LoadInitialTheme()
         {
             if (_themePaths.Length > 0)

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Interop;
 
 namespace Lol_Overlay_MVVM.MVVM.Model
 {
@@ -87,6 +88,20 @@ namespace Lol_Overlay_MVVM.MVVM.Model
             }
 
             return true;
+        }
+
+        public IntPtr GetOverlayWindowHandle()
+        {
+            var wnd = System.Windows.Application.Current.MainWindow;
+            return new WindowInteropHelper(wnd).Handle;
+        }
+
+        public bool IsLeagueOrOverlayForeground()
+        {
+            var foreground = GetForegroundWindow();
+            var league = GetLeagueHWND();
+            var overlay = GetOverlayWindowHandle();
+            return foreground == league || foreground == overlay;
         }
 
         public bool focusLeagueWindow()

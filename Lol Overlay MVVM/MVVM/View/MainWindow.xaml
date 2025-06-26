@@ -33,11 +33,7 @@
 
                     <Border BorderThickness="2,0,0,0" BorderBrush="{DynamicResource BorderColor}">
                         <Button Margin="10,0,0,0" Style="{StaticResource NavigationButton}" Tag="{x:Static fa:FontAwesomeIcon.PaintBrush}" Width="Auto" FontFamily="{StaticResource Poppins-Semibold}" Command="{Binding CycleThemeCommand}">
-                            <TextBlock TextAlignment="Center">
-                                Sage
-                                <LineBreak />
-                                Theme
-                            </TextBlock>
+                            <TextBlock TextAlignment="Center" Text="{Binding ThemeName}" />
                         </Button>
                     </Border>
                 </StackPanel>

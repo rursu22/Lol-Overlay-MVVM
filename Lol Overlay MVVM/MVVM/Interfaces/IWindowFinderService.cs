@@ -15,5 +15,9 @@ namespace Lol_Overlay_MVVM.MVVM.Interfaces
         public bool focusLeagueWindow();
 
         public Rectangle? GetLeagueWindowBounds();
+
+        IntPtr GetOverlayWindowHandle();
+
+        bool IsLeagueOrOverlayForeground();
     }
 }

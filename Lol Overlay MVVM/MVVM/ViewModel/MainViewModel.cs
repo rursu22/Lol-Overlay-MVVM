@@ -24,11 +24,15 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
         public RelayCommand NavigateToHomeCommand { get; }
         public RelayCommand NavigateToAddAccountCommand { get; }
         public RelayCommand NavigateToCalibrationCommand { get; }
-
+        public IRelayCommand ShowOverlayCommand { get; }
+        public IRelayCommand HideOverlayCommand { get; }
+        public IRelayCommand ExitAppCommand { get; }
         public RelayCommand CycleThemeCommand { get; }
 
         [ObservableProperty]
         bool shouldWindowBeVisible = false;
+        [ObservableProperty]
+        string themeName;
 
         public INavigationService Navigation
         {
@@ -43,7 +47,9 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
         public MainViewModel(INavigationService navService, IThemeService themeService, IWindowFinderService windowFinderService)
         {
             Navigation = navService;
+
             _themeService = themeService;
+
             _windowFinderService = windowFinderService;
 
             NavigateToHomeCommand = new RelayCommand(ExecuteNavigateToHome);
@@ -54,22 +60,27 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
 
             CycleThemeCommand = new RelayCommand(ExecuteCycleTheme);
 
+            ShowOverlayCommand = new RelayCommand(() => ShouldWindowBeVisible = true);
+
+            HideOverlayCommand = new RelayCommand(() => ShouldWindowBeVisible = false);
+
+            ExitAppCommand = new RelayCommand(() => System.Windows.Application.Current.Shutdown());
+
             _navigation.NavigateTo<HomeViewModel>();
+
+            ThemeName = _themeService.GetCurrentThemeName();
 
             var timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(1)
+                Interval = TimeSpan.FromMilliseconds(500)
             };
 
             timer.Tick += (sender, e) =>
             {
                 bool leagueReady = _windowFinderService.isLeagueWindowReady();
-                bool leagueFocused = _windowFinderService.isLeagueWindowFocused();
-                var overlay = System.Windows.Application.Current.MainWindow;
+                bool leagueOrOverlayFocused = _windowFinderService.IsLeagueOrOverlayForeground();
 
-                bool overlayFocused = overlay != null && overlay.IsKeyboardFocusWithin;
-
-                ShouldWindowBeVisible = leagueReady && (leagueFocused || overlayFocused);
+                ShouldWindowBeVisible = leagueReady && leagueOrOverlayFocused;
             };
 
             timer.Start();
@@ -95,6 +106,7 @@ namespace Lol_Overlay_MVVM.MVVM.ViewModel
         public void ExecuteCycleTheme()
         {
             _themeService.CycleTheme();
+            ThemeName = _themeService.GetCurrentThemeName();
         }
     }
 }

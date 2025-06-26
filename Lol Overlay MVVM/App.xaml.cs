@@ -46,10 +46,17 @@ namespace Lol_Overlay_MVVM
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            base.OnStartup(e);
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
 
+            var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
+
+            var trayIcon = (Hardcodet.Wpf.TaskbarNotification.TaskbarIcon)this.Resources["TrayIcon"];
+
+            trayIcon.DataContext = mainViewModel;
+
             mainWindow.Show();
-            base.OnStartup(e);
+            
         }
 
     }

@@ -14,6 +14,7 @@
     <None Remove="Fonts\Lato-Regular.ttf" />
     <None Remove="Fonts\Poppins-Regular.ttf" />
     <None Remove="Fonts\Poppins-SemiBold.ttf" />
+    <None Remove="Icon\LoLOverlay64.ico" />
     <None Remove="Images\alreadyLoggedInTemplate.png" />
     <None Remove="Images\loggedIn.png" />
     <None Remove="Images\login.png" />
@@ -23,6 +24,8 @@
 
   <ItemGroup>
     <Page Remove="Themes\Dark.xaml" />
+    <Page Remove="Themes\Light.xaml" />
+    <Page Remove="Themes\New Light.xaml" />
     <Page Remove="Themes\Sage.xaml" />
     <Page Remove="Themes\Sakura.xaml" />
   </ItemGroup>
@@ -39,6 +42,8 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
+    <PackageReference Include="Hardcodet.Wpf.TaskbarNotification" Version="1.0.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="OpenCvSharp4" Version="4.11.0.20250507" />
@@ -57,6 +62,9 @@
     <Content Include="Fonts\Poppins-SemiBold.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Icon\LoLOverlay64.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\alreadyLoggedInTemplate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -72,8 +80,15 @@
     <Content Include="Themes\Dark.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Themes\Light.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Themes\Sage.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\New Light.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
     </Content>
     <Content Include="Themes\Sakura.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
