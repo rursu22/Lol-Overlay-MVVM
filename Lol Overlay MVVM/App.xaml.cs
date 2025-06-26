@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Hardcodet.Wpf.TaskbarNotification;
 using Lol_Overlay_MVVM.Core;
 using Lol_Overlay_MVVM.MVVM.Interfaces;
 using Lol_Overlay_MVVM.MVVM.Model;
@@ -30,6 +31,7 @@ namespace Lol_Overlay_MVVM
             services.AddSingleton<ICalibrationService, CalibrationService>();
             services.AddSingleton<IComputerVisionService, ComputerVisionService>();
             services.AddSingleton<IWindowFinderService, WindowFinderService>();
+            services.AddSingleton<ISettingsStore, SettingsStore>();
 
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
             services.AddSingleton<INavigationService>(serviceProvider => new NavigationService(serviceProvider.GetRequiredService<Func<Type, ViewModel>>()));
@@ -44,14 +46,19 @@ namespace Lol_Overlay_MVVM
             _serviceProvider = services.BuildServiceProvider();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            var themeService = _serviceProvider.GetRequiredService<IThemeService>();
+            var themeName = await themeService.LoadInitialThemeAsync();
+
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
 
             var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
+            mainViewModel.ThemeName = themeName;
 
-            var trayIcon = (Hardcodet.Wpf.TaskbarNotification.TaskbarIcon)this.Resources["TrayIcon"];
+            var trayIcon = (TaskbarIcon)this.Resources["TrayIcon"];
 
             trayIcon.DataContext = mainViewModel;
 

@@ -2,7 +2,7 @@
 {
     public interface IThemeService
     {
-        void LoadInitialTheme();
+        Task<string> LoadInitialThemeAsync();
         void CycleTheme();
 
         string GetCurrentThemeName();
