@@ -26,6 +26,8 @@ Follows MVVM (Model View ViewModel) architecture to split the UI from the logic,
 
 ![image](https://github.com/user-attachments/assets/18b593f2-a2f8-4a0b-b15b-e42877a561a9)
 
-![image](https://github.com/user-attachments/assets/83bc8844-81b9-4029-b68a-461367abe0b4)
+![image](https://github.com/user-attachments/assets/23ff7e7b-14ad-40ca-88c2-db931ae566f4)
+
+
   
 - Relog capabilities with Computer Vision (checks for specific features of an application, for example, it looks for the Play button to check if you are in game already)
