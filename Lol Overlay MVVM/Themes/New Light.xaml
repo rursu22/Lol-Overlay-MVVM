@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="BackgroundColor" Color="#F1E7E7"/>
+    <SolidColorBrush x:Key="BackgroundColorText" Color ="#4d4d4d"/>
+    <SolidColorBrush x:Key="BorderHoverColor" Color="#4d4d4d"/>
+    <SolidColorBrush x:Key="BorderColor" Color="#abb3ab" />
+    <SolidColorBrush x:Key="ButtonColor" Color="#c7b7b7" />
+    <SolidColorBrush x:Key="ButtonTextColor" Color="#E7F1E7" />
+    <SolidColorBrush x:Key="CloseButtonColor" Color="#4d4d4d" />
+    <Color x:Key="DropShadowColor">
+        White
+    </Color>
+    <Color x:Key="TextDropShadowColor">
+        Black
+    </Color>
+</ResourceDictionary>

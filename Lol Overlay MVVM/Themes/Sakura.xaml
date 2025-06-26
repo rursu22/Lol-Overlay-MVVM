@@ -4,7 +4,7 @@
 
     <SolidColorBrush x:Key="BackgroundColor" Color="#fcd7e7" />
     <SolidColorBrush x:Key="BackgroundColorText" Color="#a61352"/>
-    <SolidColorBrush x:Key="HoverColor" Color="#493489"/>
+    <SolidColorBrush x:Key="BorderHoverColor" Color="#a61352"/>
     <SolidColorBrush x:Key="BorderColor" Color="#f55d9e" />
     <SolidColorBrush x:Key="ButtonColor" Color="#f7b2d0" />
     <SolidColorBrush x:Key="CloseButtonColor" Color="#a61352" />
