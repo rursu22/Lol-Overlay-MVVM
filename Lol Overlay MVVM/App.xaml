@@ -15,12 +15,13 @@
 
 
             <tb:TaskbarIcon x:Key="TrayIcon" IconSource="/Icon/LoLOverlay64.ico" ToolTipText="LoL Account Overlay">
-
                 <tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
+                        
                         <MenuItem Header="Show Overlay"  Command="{Binding ShowOverlayCommand}" />
                         <MenuItem Header="Hide Overlay"  Command="{Binding HideOverlayCommand}" />
                         <Separator/>
+                        <MenuItem Header="Start with Windows" IsCheckable="True" IsChecked="{Binding StartWithWindows}" />
                         <MenuItem Header="Exit" Command="{Binding ExitAppCommand}" />
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>
@@ -32,7 +33,7 @@
             <utils:InverseBooleanToVisibilityConverter
             x:Key="InverseBoolToVisibilityConverter" />
 
-            <DataTemplate DataType="{x:Type viewmodel:AddAccountViewModel}">
+            <DataTemplate DataType="{x:Type viewmodel:AddAccountViewModel}">    
                 <view:AddAccountView />
             </DataTemplate>
         
