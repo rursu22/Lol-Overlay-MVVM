@@ -54,12 +54,12 @@ Right-click the tray icon → **Start with Windows** to toggle auto-launch on lo
 
 ## Security & Privacy
 
-- **All data is stored locally**, encrypted with AES  
+- **All data is stored locally**, encrypted with DPAPI 
 - **No external servers**—the overlay never sends your credentials over the network  
 - **Open-source**: inspect or modify as you wish  
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-Feel free to open issues or submit PRs to add features (e.g. support for other games, advanced CV, custom installers).
+Feel free to open issues or submit PRs to add features (e.g. support for other games, advanced CV, etc).
